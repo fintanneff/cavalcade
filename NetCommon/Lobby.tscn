@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cw42xe4nc70fp"]
+
+[node name="Lobby" type="Node2D" unique_id=2076386863]
+
+[node name="Label" type="Label" parent="." unique_id=176274170]
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 296.0
+offset_bottom = 111.0
+theme_override_font_sizes/font_size = 32
+text = "LOBBY"
+horizontal_alignment = 1
+vertical_alignment = 1

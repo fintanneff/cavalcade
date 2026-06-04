@@ -1,0 +1,940 @@
+[gd_scene format=3 uid="uid://cq544urypyixt"]
+
+[ext_resource type="Script" uid="uid://di03nici55a85" path="res://General/Menu/MenuCursor.cs" id="1_4c57u"]
+[ext_resource type="PackedScene" uid="uid://50gvy68ld6l5" path="res://BattleSystem/action_menu.tscn" id="1_efxa6"]
+[ext_resource type="Script" uid="uid://bvlnhartmus0p" path="res://BattleSystem/GridMapGen.cs" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://dbwlqc4wd0j7r" path="res://General/Menu/musket_spr.png" id="1_kek77"]
+[ext_resource type="Shader" uid="uid://bij21ulaukmpp" path="res://Dump/zoomin.gdshader" id="1_yaehf"]
+[ext_resource type="PackedScene" uid="uid://b72uj0lhctdcu" path="res://BattleSystem/GridTile.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://511ubwckkdrm" path="res://BattleSystem/GridCursor.cs" id="3_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://ccq2jeh7mkjkp" path="res://BattleSystem/tile_cursor.png" id="3_h2yge"]
+[ext_resource type="FontFile" uid="uid://dtcfyn81oixhf" path="res://General/monogram.ttf" id="4_w48qg"]
+[ext_resource type="Script" uid="uid://tuhmud45je6y" path="res://BattleSystem/WaitingForOtherPlayers.cs" id="5_vivmo"]
+[ext_resource type="PackedScene" uid="uid://chrc6oo5w1sgb" path="res://BattleSystem/BattleScene/battle_scene.tscn" id="6_2cqfq"]
+[ext_resource type="Script" uid="uid://bv33lrsasgda0" path="res://BattleSystem/PawnActionManager.cs" id="10_4c57u"]
+[ext_resource type="Script" uid="uid://c8gvd525liftk" path="res://BattleSystem/ScenarioInfo.cs" id="12_vivmo"]
+[ext_resource type="Script" uid="uid://d3gigmnbu1xs" path="res://BattleSystem/BattleBootstrapper.cs" id="13_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://ci8i8bgxv607g" path="res://CharacterSheet/Classes/Dipshit/_DipshitObj.tscn" id="15_vivmo"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_074og"]
+viewport_path = NodePath("Map/MapViewport")
+
+[sub_resource type="Gradient" id="Gradient_cegan"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_82xsv"]
+gradient = SubResource("Gradient_cegan")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_getpj"]
+resource_local_to_scene = true
+shader = ExtResource("1_yaehf")
+shader_parameter/from_tex = SubResource("ViewportTexture_074og")
+shader_parameter/to_tex = SubResource("GradientTexture1D_82xsv")
+shader_parameter/progress = 0.0
+shader_parameter/blur_strength = 0.3
+shader_parameter/samples = 20
+shader_parameter/blur_center = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_vivmo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/MapViewport/Waiting:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2cqfq"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Map/MapViewport/Waiting:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yaehf"]
+_data = {
+&"RESET": SubResource("Animation_vivmo"),
+&"idle": SubResource("Animation_2cqfq")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ryguw"]
+viewport_path = NodePath("Battle/BattleViewport")
+
+[sub_resource type="Gradient" id="Gradient_d13ii"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1u8w0"]
+gradient = SubResource("Gradient_d13ii")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0odxb"]
+resource_local_to_scene = true
+shader = ExtResource("1_yaehf")
+shader_parameter/from_tex = SubResource("ViewportTexture_ryguw")
+shader_parameter/to_tex = SubResource("GradientTexture1D_1u8w0")
+shader_parameter/progress = 0.0
+shader_parameter/blur_strength = 0.3
+shader_parameter/samples = 20
+shader_parameter/blur_center = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_074og"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackFade:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BackFade:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BackFade/BackFade:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.73333335)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../Battle/BattleViewport/BattleScene/FakePortrait:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(80, 113)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Battle/BattleViewport/BattleScene/FakePortrait2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(320, 113)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TopBBar:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -80)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TopBBar2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 260)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../Battle/BattleViewport/BattleScene/LeftCharUI:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../../Battle/BattleViewport/BattleScene/RightCharUI:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../Battle/BattleViewport/BattleScene/LeftCharUI:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../../Battle/BattleViewport/BattleScene/RightCharUI:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath(".:render_target_update_mode")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("..:material:shader_parameter/progress")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../../Battle:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_yaehf"]
+resource_name = "zoom"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackFade:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BackFade:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 8.726646259971648]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Battle/BattleViewport/BattleScene")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"SpinIn"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BackFade/BackFade:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.53333336, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Battle/BattleViewport/BattleScene/FakePortrait:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6666667, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(480, 113), Vector2(60, 113), Vector2(50, 113)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../Battle/BattleViewport/BattleScene/FakePortrait2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.6666667, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-80, 113), Vector2(340, 113), Vector2(350, 113)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TopBBar:position")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -80)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TopBBar2:position")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 260)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../../Battle/BattleViewport/BattleScene/LeftCharUI:scale")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 20), Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../Battle/BattleViewport/BattleScene/RightCharUI:scale")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 20), Vector2(1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../../Battle/BattleViewport/BattleScene/LeftCharUI:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../../Battle/BattleViewport/BattleScene/RightCharUI:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 1.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath(".:render_target_update_mode")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("..:material:shader_parameter/progress")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../../Battle:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_cegan"]
+resource_name = "zoomout"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackFade:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BackFade:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [8.726646259971648, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Battle/BattleViewport/BattleScene")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"SpinOut"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BackFade/BackFade:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Battle/BattleViewport/BattleScene/FakePortrait:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(50, 113), Vector2(-50, 113)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../Battle/BattleViewport/BattleScene/FakePortrait2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(350, 113), Vector2(450, 113)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TopBBar:position")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -80)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TopBBar2:position")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 260)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../../Battle/BattleViewport/BattleScene/LeftCharUI:scale")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 20)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../Battle/BattleViewport/BattleScene/RightCharUI:scale")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 20)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../../Battle/BattleViewport/BattleScene/LeftCharUI:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../../Battle/BattleViewport/BattleScene/RightCharUI:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath(".:render_target_update_mode")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 2]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("..:material:shader_parameter/progress")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../../Battle:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 1.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_074og"]
+_data = {
+&"RESET": SubResource("Animation_074og"),
+&"zoom": SubResource("Animation_yaehf"),
+&"zoomout": SubResource("Animation_cegan")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
+transparency = 4
+shading_mode = 0
+albedo_texture = ExtResource("3_h2yge")
+texture_filter = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lquwl"]
+size = Vector2(1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+size = Vector3(3, 1, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
+size = Vector3(1, 1, 4)
+
+[node name="Main" type="Node3D" unique_id=26420950]
+metadata/_edit_lock_ = true
+
+[node name="Map" type="SubViewportContainer" parent="." unique_id=2063057712]
+material = SubResource("ShaderMaterial_getpj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="MapViewport" type="SubViewport" parent="Map" unique_id=1133039953]
+handle_input_locally = false
+oversampling = false
+size = Vector2i(800, 480)
+size_2d_override = Vector2i(400, 240)
+size_2d_override_stretch = true
+
+[node name="ActionMenu" parent="Map/MapViewport" unique_id=691032387 instance=ExtResource("1_efxa6")]
+position = Vector2(345, 240)
+
+[node name="MenuCursor" type="Node2D" parent="Map/MapViewport" unique_id=1277002346]
+z_index = 10
+script = ExtResource("1_4c57u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Map/MapViewport/MenuCursor" unique_id=2127423366]
+texture_filter = 1
+position = Vector2(-17, 0)
+texture = ExtResource("1_kek77")
+
+[node name="Waiting" type="Label" parent="Map/MapViewport" unique_id=551760957]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -168.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_w48qg")
+text = "Waiting for other players..."
+horizontal_alignment = 2
+script = ExtResource("5_vivmo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map/MapViewport/Waiting" unique_id=388850940]
+root_node = NodePath("../../../..")
+libraries/ = SubResource("AnimationLibrary_yaehf")
+autoplay = &"idle"
+
+[node name="BackFade" type="Node2D" parent="Map/MapViewport" unique_id=180866473]
+position = Vector2(200, 120)
+scale = Vector2(1e-05, 1e-05)
+
+[node name="BackFade" type="ColorRect" parent="Map/MapViewport/BackFade" unique_id=1451791562]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -210.0
+offset_right = 210.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.73333335)
+
+[node name="TopBBar" type="ColorRect" parent="Map/MapViewport" unique_id=67592163]
+offset_top = -80.0
+offset_right = 400.0
+offset_bottom = -30.0
+color = Color(0, 0, 0, 1)
+
+[node name="TopBBar2" type="ColorRect" parent="Map/MapViewport" unique_id=1093748652]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = 20.0
+offset_right = 400.0
+offset_bottom = 80.000885
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="CamSystem" type="Node3D" parent="Map/MapViewport" unique_id=619391970]
+transform = Transform3D(0.9902678, -0.06958653, 0.12052741, 0, 0.86602515, 0.49999985, -0.13917308, -0.49513388, 0.85759705, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Map/MapViewport/CamSystem" unique_id=1896607899]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 20.05)
+current = true
+fov = 25.0
+size = 7.0
+far = 1000.0
+
+[node name="Battle" type="SubViewportContainer" parent="." unique_id=371641406]
+visible = false
+material = SubResource("ShaderMaterial_0odxb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="BattleViewport" type="SubViewport" parent="Battle" unique_id=1379324705]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(800, 480)
+size_2d_override = Vector2i(400, 240)
+size_2d_override_stretch = true
+render_target_update_mode = 0
+
+[node name="BattleScene" parent="Battle/BattleViewport" unique_id=1670625728 node_paths=PackedStringArray("testAnim") instance=ExtResource("6_2cqfq")]
+testAnim = NodePath("../../../AnimationPlayer")
+message = "Testing testing testing testing..."
+timeBetweenLetters = 0.025
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=956987601]
+root_node = NodePath("../Map/MapViewport")
+libraries/ = SubResource("AnimationLibrary_074og")
+
+[node name="Cursor" type="Node3D" parent="." unique_id=736037683 node_paths=PackedStringArray("camSystem", "actionWindow")]
+script = ExtResource("3_1bvp3")
+camSystem = NodePath("../Map/MapViewport/CamSystem")
+actionWindow = NodePath("../Map/MapViewport/ActionMenu")
+
+[node name="CursorMesh" type="MeshInstance3D" parent="Cursor" unique_id=1822062931]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0.07, 0)
+material_override = SubResource("StandardMaterial3D_1bvp3")
+mesh = SubResource("PlaneMesh_lquwl")
+
+[node name="Lvl" type="Node3D" parent="." unique_id=872838231]
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Lvl" unique_id=945657202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_7dm0k")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D6" type="CSGMesh3D" parent="Lvl" unique_id=873009211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.5, 2)
+use_collision = true
+mesh = SubResource("BoxMesh_ig7tw")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D7" type="CSGMesh3D" parent="Lvl" unique_id=833328603]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.5, -2)
+use_collision = true
+mesh = SubResource("BoxMesh_ig7tw")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D8" type="CSGMesh3D" parent="Lvl" unique_id=1915298045]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, -0.5, -6)
+use_collision = true
+mesh = SubResource("BoxMesh_ig7tw")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D9" type="CSGMesh3D" parent="Lvl" unique_id=1468048608]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, -0.5, 6)
+use_collision = true
+mesh = SubResource("BoxMesh_ig7tw")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="Lvl" unique_id=1943879921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.5, 1)
+use_collision = true
+mesh = SubResource("BoxMesh_7dm0k")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="Lvl" unique_id=1397551450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.5, -1)
+use_collision = true
+mesh = SubResource("BoxMesh_7dm0k")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D10" type="CSGMesh3D" parent="Lvl" unique_id=287670112]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, -0.5, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_ig7tw")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D11" type="CSGMesh3D" parent="Lvl" unique_id=1477112439]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7, -0.5, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_ig7tw")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="Lvl" unique_id=1996272312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -0.5, -3.5)
+use_collision = true
+mesh = SubResource("BoxMesh_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D5" type="CSGMesh3D" parent="Lvl" unique_id=1719447768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.5, 3.5)
+use_collision = true
+mesh = SubResource("BoxMesh_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D12" type="CSGMesh3D" parent="Lvl" unique_id=1262623096]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.5, -0.5, 6)
+use_collision = true
+mesh = SubResource("BoxMesh_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D13" type="CSGMesh3D" parent="Lvl" unique_id=1748909531]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3.5, -0.5, -6)
+use_collision = true
+mesh = SubResource("BoxMesh_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D14" type="CSGMesh3D" parent="Lvl" unique_id=625190669]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -0.5, 3.5)
+use_collision = true
+mesh = SubResource("BoxMesh_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D15" type="CSGMesh3D" parent="Lvl" unique_id=1906853992]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -0.5, 3.5)
+use_collision = true
+mesh = SubResource("BoxMesh_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D16" type="CSGMesh3D" parent="Lvl" unique_id=372032000]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, -0.5, -3)
+use_collision = true
+mesh = SubResource("BoxMesh_ig7tw")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D17" type="CSGMesh3D" parent="Lvl" unique_id=2138299020]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.5, -0.5, -5)
+use_collision = true
+mesh = SubResource("BoxMesh_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="CSGMesh3D18" type="CSGMesh3D" parent="Lvl" unique_id=1486646479]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.5, -0.5, -6)
+use_collision = true
+mesh = SubResource("BoxMesh_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=375142193]
+transform = Transform3D(0.9659259, -0.22414383, 0.12940949, 7.1967077e-09, 0.49999997, 0.86602545, -0.258819, -0.8365163, 0.4829629, 0, 5.5, 0)
+
+[node name="GridMapGen" type="RayCast3D" parent="." unique_id=2093276517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, -5, 0)
+script = ExtResource("1_ig7tw")
+MapBounds = Rect2i(-9, -7, 19, 15)
+gridTilePacked = ExtResource("2_0xm2m")
+
+[node name="ScenarioInfo" type="Node" parent="." unique_id=222200391]
+script = ExtResource("12_vivmo")
+teamColors = PackedColorArray(0.1513373, 0.38497505, 1, 1, 0.93885016, 0.11787879, 0.19686422, 1, 0.3449688, 0.634684, 0.27755502, 1, 0.7197528, 0.5626215, 7.70092e-07, 1)
+
+[node name="PawnActionManager" type="Node" parent="." unique_id=1667343418 node_paths=PackedStringArray("camSystem")]
+script = ExtResource("10_4c57u")
+camSystem = NodePath("../Map/MapViewport/CamSystem")
+
+[node name="BattleBootstrapper" type="Node" parent="." unique_id=1935590488]
+script = ExtResource("13_ycdy4")
+
+[node name="Dipshit" parent="." unique_id=701862837 instance=ExtResource("15_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="Dipshit2" parent="." unique_id=2063372460 instance=ExtResource("15_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+TeamIndex = 1
+
+[editable path="Battle/BattleViewport/BattleScene"]
+[editable path="Battle/BattleViewport/BattleScene/FakePortrait"]
+[editable path="Battle/BattleViewport/BattleScene/FakePortrait2"]

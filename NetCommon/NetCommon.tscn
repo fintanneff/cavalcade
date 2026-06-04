@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://c18mridmpm2tm"]
+
+[ext_resource type="Script" uid="uid://bc7u73qwg0sw6" path="res://NetCommon/NetCommon.cs" id="1_1v8sx"]
+[ext_resource type="Script" uid="uid://ckt0qqvqk8go3" path="res://NetCommon/NetIm.cs" id="2_hq7ce"]
+[ext_resource type="FontFile" uid="uid://c8315xy50hogm" path="res://NetCommon/Roboto-VariableFont_wdth,wght.ttf" id="3_7qoqb"]
+
+[sub_resource type="Gradient" id="Gradient_1v8sx"]
+colors = PackedColorArray(0, 0, 0, 0.909804, 0, 0, 0, 0.32549)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hq7ce"]
+gradient = SubResource("Gradient_1v8sx")
+
+[node name="NetCommon" type="Node" unique_id=1404869647]
+script = ExtResource("1_1v8sx")
+lobby_scene_path = "res://NetCommon/Lobby.tscn"
+landing_scene_path = "res://main.tscn"
+disconnect_scene_path = "res://NetCommon/Disconnect.tscn"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1395121701]
+visible = false
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=844311578]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1214952208]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 197.0
+offset_bottom = 246.0
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_hq7ce")
+expand_mode = 1
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer/Control/TextureRect" unique_id=987954987]
+position = Vector2(4, 4)
+script = ExtResource("2_hq7ce")
+fnt = ExtResource("3_7qoqb")
+colors = PackedColorArray(1, 1, 1, 1, 7.70092e-06, 0.776893, 0.157559, 1, 1.29953e-06, 0.618915, 0.298773, 1, 0.435782, 0.843558, 0, 1)

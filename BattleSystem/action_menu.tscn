@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://50gvy68ld6l5"]
+
+[ext_resource type="Script" uid="uid://dd5ooeaw85emy" path="res://BattleSystem/MainActionMenu.cs" id="1_0sbkl"]
+[ext_resource type="Script" uid="uid://bfnn7xh3q8lvf" path="res://General/Menu/GenMenu.cs" id="1_grmdj"]
+[ext_resource type="FontFile" uid="uid://dtcfyn81oixhf" path="res://General/monogram.ttf" id="2_714d8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vw27"]
+bg_color = Color(0, 0, 0, 0.74509805)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grmdj"]
+bg_color = Color(0, 0, 0, 0.8745098)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[node name="ActionMenu" type="Node2D" unique_id=232695386 node_paths=PackedStringArray("waitConfirm", "MenuItems")]
+script = ExtResource("1_0sbkl")
+waitConfirm = NodePath("WaitSubmenu")
+spaceBetweenItems = 24
+MenuItems = [NodePath("Panel/Attack"), NodePath("Panel/Wait")]
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="." unique_id=1257912763]
+offset_left = -50.0
+offset_top = -106.0
+offset_right = 50.0
+offset_bottom = -6.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5vw27")
+
+[node name="Attack" type="Node2D" parent="Panel" unique_id=1512615929]
+position = Vector2(14, 12)
+
+[node name="Label" type="Label" parent="Panel/Attack" unique_id=161113947]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_714d8")
+theme_override_font_sizes/font_size = 16
+text = "Attack"
+vertical_alignment = 1
+
+[node name="Wait" type="Node2D" parent="Panel" unique_id=997330083]
+position = Vector2(14, 32)
+
+[node name="Wait" type="Label" parent="Panel/Wait" unique_id=2092984192]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_714d8")
+theme_override_font_sizes/font_size = 16
+text = "Wait"
+vertical_alignment = 1
+
+[node name="WaitSubmenu" type="Node2D" parent="." unique_id=1057308460 node_paths=PackedStringArray("parentMenu", "MenuItems")]
+position = Vector2(-12, -13)
+script = ExtResource("1_grmdj")
+parentMenu = NodePath("..")
+MenuItems = [NodePath("Panel/Yes"), NodePath("Panel/No")]
+
+[node name="Panel" type="Panel" parent="WaitSubmenu" unique_id=766785869]
+offset_left = -50.0
+offset_top = -106.0
+offset_right = 50.0
+offset_bottom = -26.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_grmdj")
+
+[node name="Yes" type="Node2D" parent="WaitSubmenu/Panel" unique_id=254948327]
+position = Vector2(14, 39)
+
+[node name="Label" type="Label" parent="WaitSubmenu/Panel/Yes" unique_id=1090847174]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_714d8")
+theme_override_font_sizes/font_size = 16
+text = "Yes"
+vertical_alignment = 1
+
+[node name="No" type="Node2D" parent="WaitSubmenu/Panel" unique_id=1042535979]
+position = Vector2(14, 57)
+
+[node name="Label" type="Label" parent="WaitSubmenu/Panel/No" unique_id=1448153020]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_714d8")
+theme_override_font_sizes/font_size = 16
+text = "No"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="WaitSubmenu/Panel" unique_id=1394165015]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_714d8")
+theme_override_font_sizes/font_size = 16
+text = "Just wait?"
+vertical_alignment = 1

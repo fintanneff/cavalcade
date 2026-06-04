@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://y7lelb655hlj"]
+
+[ext_resource type="Texture2D" uid="uid://b4fdqy8ryu8nx" path="res://CharacterSheet/Species/Shalaket/shalaket_walk_slightchange_16.png" id="1_3qvuu"]
+[ext_resource type="Texture2D" uid="uid://7nwdm0l0ol3m" path="res://CharacterSheet/Classes/Dipshit/stick.png" id="2_j7yjb"]
+[ext_resource type="Texture2D" uid="uid://d1fnf0mbx3wgj" path="res://CharacterSheet/Species/Shalaket/shalaket_teamcolor_16.png" id="2_qkkfl"]
+
+[node name="Dipshit2D" type="Node2D" unique_id=1620093214]
+metadata/_edit_lock_ = true
+
+[node name="MainOrigin" type="Node2D" parent="." unique_id=1222032170]
+position = Vector2(32, 48)
+
+[node name="MainSprite" type="Sprite2D" parent="MainOrigin" unique_id=1102576354]
+texture_filter = 1
+texture = ExtResource("1_3qvuu")
+hframes = 2
+vframes = 4
+
+[node name="TeamColor" type="Sprite2D" parent="MainOrigin/MainSprite" unique_id=824030776]
+texture_filter = 1
+texture = ExtResource("2_qkkfl")
+hframes = 2
+vframes = 4
+
+[node name="StickOrigin" type="Node2D" parent="MainOrigin" unique_id=1815368086]
+position = Vector2(-8.000001, 4)
+rotation = -0.50016105
+
+[node name="Stick" type="Sprite2D" parent="MainOrigin/StickOrigin" unique_id=878895485]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(0, -5)
+texture = ExtResource("2_j7yjb")
+flip_h = true

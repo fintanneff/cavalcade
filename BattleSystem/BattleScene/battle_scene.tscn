@@ -1,0 +1,319 @@
+[gd_scene format=3 uid="uid://chrc6oo5w1sgb"]
+
+[ext_resource type="Script" uid="uid://bo8enej50m01k" path="res://BattleSystem/BattleScene/BattleSceneManager.cs" id="1_3or81"]
+[ext_resource type="PackedScene" uid="uid://pfayertql7cs" path="res://BattleSystem/BattleScene/fake_portrait.tscn" id="3_ev6mb"]
+[ext_resource type="FontFile" uid="uid://dmds12yi850x" path="res://General/CutiveMono-Regular.ttf" id="5_a5xea"]
+[ext_resource type="Texture2D" uid="uid://cpjkwvelq4dnt" path="res://BattleSystem/BattleScene/hp_bar.png" id="6_f8qb6"]
+[ext_resource type="Script" uid="uid://cdxganb2lwri0" path="res://BattleSystem/BattleScene/BattleHPUI.cs" id="6_psgum"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a1hlu"]
+size = Vector2(4, 2)
+
+[node name="BattleScene" type="Node3D" unique_id=1670625728 node_paths=PackedStringArray("leftCharUI", "rightCharUI", "LeftCharOrigin", "RightCharOrigin", "camSystem", "letterTemplate")]
+script = ExtResource("1_3or81")
+leftCharUI = NodePath("LeftCharUI")
+rightCharUI = NodePath("RightCharUI")
+LeftCharOrigin = NodePath("LOrigin")
+RightCharOrigin = NodePath("ROrigin")
+camSystem = NodePath("BattleCamSystem")
+letterTemplate = NodePath("Letter")
+message = "Playername Attacks..."
+timeBetweenLetters = 0.05
+pixelsBetweenLetters = 10
+
+[node name="Letter" type="Label" parent="." unique_id=267530740]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = -184.0
+offset_bottom = 39.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.43205583, 0.15604424, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_a5xea")
+theme_override_font_sizes/font_size = 18
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="BattleCamSystem" type="Node3D" parent="." unique_id=900331875]
+transform = Transform3D(0.8660253, -0.08682407, 0.49240375, 0, 0.98480743, 0.17364813, -0.49999997, -0.15038368, 0.8528683, 0, 0.1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="BattleCamSystem" unique_id=911753293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.2)
+fov = 60.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1415905454]
+mesh = SubResource("PlaneMesh_a1hlu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=807301096]
+transform = Transform3D(1, 0, 0, 0, 0.25881907, 0.9659258, 0, -0.9659258, 0.25881907, 0, 2.5, 0)
+
+[node name="ROrigin" type="Node3D" parent="." unique_id=271181889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
+
+[node name="LOrigin" type="Node3D" parent="." unique_id=1933617102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, 0)
+
+[node name="BattleUI" type="Node2D" parent="." unique_id=1391167718]
+
+[node name="FakePortrait" parent="." unique_id=2115966439 instance=ExtResource("3_ev6mb")]
+position = Vector2(80, 113)
+
+[node name="FakePortrait2" parent="." unique_id=288680366 instance=ExtResource("3_ev6mb")]
+position = Vector2(320, 113)
+scale = Vector2(-1, 1)
+
+[node name="LeftCharUI" type="Node2D" parent="." unique_id=1949585706 node_paths=PackedStringArray("hpNumber", "hpFronts", "hpBacks", "PortraitAnim")]
+position = Vector2(14, 200)
+script = ExtResource("6_psgum")
+maxHp = 128
+currentHp = 100
+hpNumber = NodePath("hpNumL")
+hpFronts = [NodePath("hp1/Hp4"), NodePath("hp2/Hp4"), NodePath("hp3/Hp4"), NodePath("hp4/Hp4")]
+hpBacks = [NodePath("hp1/back"), NodePath("hp2/back"), NodePath("hp3/back"), NodePath("hp4/back")]
+hpRollFrequency = 0.03
+PortraitAnim = NodePath("../FakePortrait/AnimationPlayer")
+
+[node name="hpNumL" type="Label" parent="LeftCharUI" unique_id=868019797]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -15.0
+offset_right = 64.0
+offset_bottom = 24.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.43205583, 0.15604424, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_a5xea")
+theme_override_font_sizes/font_size = 34
+text = "888"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hp1" type="Node2D" parent="LeftCharUI" unique_id=1084553507]
+position = Vector2(70, 21)
+
+[node name="back" type="Sprite2D" parent="LeftCharUI/hp1" unique_id=542870110]
+modulate = Color(0, 0.5176471, 0.1764706, 0.49803922)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 12)
+
+[node name="Hp4" type="Sprite2D" parent="LeftCharUI/hp1" unique_id=1790197588]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 30, 12)
+
+[node name="hp2" type="Node2D" parent="LeftCharUI" unique_id=411548754]
+position = Vector2(70, 9)
+
+[node name="back" type="Sprite2D" parent="LeftCharUI/hp2" unique_id=1034040145]
+modulate = Color(0, 0.5176471, 0.1764706, 0.49803922)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 12)
+
+[node name="Hp4" type="Sprite2D" parent="LeftCharUI/hp2" unique_id=952840607]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 30, 12)
+
+[node name="hp3" type="Node2D" parent="LeftCharUI" unique_id=56031407]
+position = Vector2(70, -3)
+
+[node name="back" type="Sprite2D" parent="LeftCharUI/hp3" unique_id=878598915]
+modulate = Color(0, 0.5176471, 0.1764706, 0.49803922)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 12)
+
+[node name="Hp4" type="Sprite2D" parent="LeftCharUI/hp3" unique_id=1023447760]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 30, 12)
+
+[node name="hp4" type="Node2D" parent="LeftCharUI" unique_id=2080775997]
+position = Vector2(70, -15)
+
+[node name="back" type="Sprite2D" parent="LeftCharUI/hp4" unique_id=867023775]
+modulate = Color(0, 0.5176471, 0.1764706, 0.49803922)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 12)
+
+[node name="Hp4" type="Sprite2D" parent="LeftCharUI/hp4" unique_id=1281391932]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 30, 12)
+
+[node name="RightCharUI" type="Node2D" parent="." unique_id=1226452748 node_paths=PackedStringArray("hpNumber", "hpFronts", "hpBacks", "PortraitAnim")]
+position = Vector2(386, 200)
+script = ExtResource("6_psgum")
+maxHp = 33
+currentHp = 20
+hpNumber = NodePath("hpNumL")
+hpFronts = [NodePath("hp1/Hp4"), NodePath("hp2/Hp4"), NodePath("hp3/Hp4"), NodePath("hp4/Hp4")]
+hpBacks = [NodePath("hp1/back"), NodePath("hp2/back"), NodePath("hp3/back"), NodePath("hp4/back")]
+hpRollFrequency = 0.03
+PortraitAnim = NodePath("../FakePortrait2/AnimationPlayer")
+
+[node name="hpNumL" type="Label" parent="RightCharUI" unique_id=1516445624]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -15.0
+offset_right = -2.0
+offset_bottom = 24.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.43205583, 0.15604424, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_a5xea")
+theme_override_font_sizes/font_size = 34
+text = "888"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hp1" type="Node2D" parent="RightCharUI" unique_id=553070240]
+position = Vector2(-70, 21)
+scale = Vector2(-1, 1)
+
+[node name="back" type="Sprite2D" parent="RightCharUI/hp1" unique_id=2129874634]
+modulate = Color(0, 0.5176471, 0.1764706, 0.49803922)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 12)
+
+[node name="Hp4" type="Sprite2D" parent="RightCharUI/hp1" unique_id=206775567]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 30, 12)
+
+[node name="hp2" type="Node2D" parent="RightCharUI" unique_id=1995098665]
+position = Vector2(-70, 9)
+scale = Vector2(-1, 1)
+
+[node name="back" type="Sprite2D" parent="RightCharUI/hp2" unique_id=46396092]
+modulate = Color(0, 0.5176471, 0.1764706, 0.49803922)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 12)
+
+[node name="Hp4" type="Sprite2D" parent="RightCharUI/hp2" unique_id=2081601267]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 30, 12)
+
+[node name="hp3" type="Node2D" parent="RightCharUI" unique_id=993870509]
+position = Vector2(-70, -3)
+scale = Vector2(-1, 1)
+
+[node name="back" type="Sprite2D" parent="RightCharUI/hp3" unique_id=624551898]
+modulate = Color(0, 0.5176471, 0.1764706, 0.49803922)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 12)
+
+[node name="Hp4" type="Sprite2D" parent="RightCharUI/hp3" unique_id=37619099]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 30, 12)
+
+[node name="hp4" type="Node2D" parent="RightCharUI" unique_id=742143877]
+position = Vector2(-70, -15)
+scale = Vector2(-1, 1)
+
+[node name="back" type="Sprite2D" parent="RightCharUI/hp4" unique_id=640542702]
+modulate = Color(0, 0.5176471, 0.1764706, 0.49803922)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 12)
+
+[node name="Hp4" type="Sprite2D" parent="RightCharUI/hp4" unique_id=1598607914]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -6)
+texture = ExtResource("6_f8qb6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 30, 12)
+
+[editable path="FakePortrait"]
+[editable path="FakePortrait2"]

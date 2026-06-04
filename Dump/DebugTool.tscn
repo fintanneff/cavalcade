@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c3kda4u5avphh"]
+
+[ext_resource type="Script" uid="uid://bfrbkvk2uvgh4" path="res://Dump/JsonDebugTool.cs" id="1_hp8ar"]
+
+[node name="DebugTool" type="Node3D" unique_id=1712747415]
+script = ExtResource("1_hp8ar")

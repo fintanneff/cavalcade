@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ckdutydxesqer"]
+
+[ext_resource type="Script" uid="uid://b68rcojpdrgm0" path="res://General/ControlSystem/ControlSystem.cs" id="1_8d1d7"]
+
+[node name="ControlSystem" type="Node" unique_id=410433432]
+script = ExtResource("1_8d1d7")

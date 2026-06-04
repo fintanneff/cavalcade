@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b72uj0lhctdcu"]
+
+[ext_resource type="Script" uid="uid://b526kikmbfo7s" path="res://BattleSystem/GridTile.cs" id="1_433jm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_433jm"]
+transparency = 4
+shading_mode = 0
+albedo_color = Color(0.7647059, 0.6313726, 0, 0.30588236)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_433jm"]
+size = Vector2(0.9, 0.9)
+
+[node name="GridTile" type="Node3D" unique_id=1230871703]
+script = ExtResource("1_433jm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1507613986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+material_override = SubResource("StandardMaterial3D_433jm")
+mesh = SubResource("PlaneMesh_433jm")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=460537913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+visible = false
+pixel_size = 0.0021
+billboard = 1
+fixed_size = true
+alpha_cut = 1
+texture_filter = 1
+text = "0"

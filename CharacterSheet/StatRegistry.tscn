@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://btce2h6mgstbi"]
+
+[ext_resource type="Script" uid="uid://c4jn0hpnkghdf" path="res://CharacterSheet/StatRegistry.cs" id="1_q7rbp"]
+
+[node name="StatRegistry" type="Node" unique_id=18197218]
+script = ExtResource("1_q7rbp")
+Classes = Dictionary[int, Object]({})
+Species = Dictionary[int, Object]({})
+BaseStatProperties = Dictionary[int, Object]({})
+MinorStatProperties = Dictionary[int, Object]({})

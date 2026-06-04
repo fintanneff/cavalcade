@@ -1,0 +1,662 @@
+[gd_scene format=3 uid="uid://ci8i8bgxv607g"]
+
+[ext_resource type="Script" uid="uid://c22rlcfd67s22" path="res://BattleSystem/GridPawn.cs" id="1_qq7jp"]
+[ext_resource type="Script" uid="uid://yn2388qq7vuw" path="res://BattleSystem/PawnGraphics.cs" id="2_ef51g"]
+[ext_resource type="Texture2D" uid="uid://bt5mljilan6tk" path="res://BattleSystem/unit_shadow.png" id="3_mvmrx"]
+[ext_resource type="PackedScene" uid="uid://y7lelb655hlj" path="res://CharacterSheet/Classes/Dipshit/dipshit_2d.tscn" id="5_bv7og"]
+[ext_resource type="Texture2D" uid="uid://bg54wulb62qtp" path="res://BattleSystem/unit_circ_large.png" id="5_cdird"]
+[ext_resource type="Texture2D" uid="uid://cpgsqadnjt1ig" path="res://BattleSystem/bar_back.png" id="7_mvmrx"]
+[ext_resource type="Texture2D" uid="uid://c5rt3pnopsy8d" path="res://BattleSystem/bar_front.png" id="8_cdird"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_llicf"]
+viewport_path = NodePath("Graphics/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_llicf"]
+transparency = 4
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.7372549)
+albedo_texture = ExtResource("3_mvmrx")
+texture_filter = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t8hoc"]
+size = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_llicf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite/TeamColor:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8.000001, 4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:z_index")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.50016105]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:z_index")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:z_index")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Visible:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Visible/Main3dSpr:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t8hoc"]
+resource_name = "battle_idle"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2.0019655, 2.501115, 3, 3.4988046, 3.9988046, 4.4988046, 5.00077, 5.49992, 5.9988046),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite/TeamColor:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2.0019655, 2.501115, 3, 3.4988046, 3.9988046, 4.5, 5.00077, 5.49992, 5.9988046),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3.4, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-2.4, 3), Vector2(-4, 4.255), Vector2(-2.4, 4.255)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.0065835, 3, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-1.5707963267948966, -1.504473815219112, -0.9983283321407564, -1.504473815219112]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:z_index")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-2]
+}
+
+[sub_resource type="Animation" id="Animation_m3sj0"]
+resource_name = "battle_return"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite/TeamColor:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.9802322e-08, 0.36666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-5, 4), Vector2(-2.4, 3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.36666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.9802322e-08, 0.36666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.9198621771937625, -1.5707963267948966]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.36666667),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:z_index")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.36666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-2]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Visible:position")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(2.9802322e-08, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.5, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p5fyr"]
+resource_name = "battle_strike"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite/TeamColor:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.73333335, 0.79999995),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-2.4, 3), Vector2(2.545, 2.175), Vector2(-5, 4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.73333335, 0.79999995),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.5707963267948966, 1.2531464029319288, -1.9198621771937625]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:z_index")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-2]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Visible:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.79999995),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1, 0, 0), Vector3(-1.5, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Visible/Main3dSpr:position")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.73333335, 0.79999995),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0), Vector3(0, 0.7, 0), Vector3(0, 0.7, 0), Vector3(0, 0.3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0dxp8"]
+resource_name = "idle"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2.0019655, 2.501115, 3, 3.4988046, 3.9988046, 4.4988046, 5.00077, 5.49992, 5.9988046),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewport/Dipshit2D/MainOrigin/MainSprite/TeamColor:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2.0019655, 2.501115, 3, 3.4988046, 3.9988046, 4.4988046, 5.00077, 5.49992, 5.9988046),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.6, 3, 4, 4.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-8.000001, 4), Vector2(-7, 5), Vector2(-5, 5), Vector2(-4, 0), Vector2(-5, 5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.6, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.12217304763960309, 0.5410520681182421]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.50016105]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Visible:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:z_index")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SubViewport/Dipshit2D/MainOrigin/StickOrigin/Stick:z_index")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_llicf"]
+_data = {
+&"RESET": SubResource("Animation_llicf"),
+&"battle_idle": SubResource("Animation_t8hoc"),
+&"battle_return": SubResource("Animation_m3sj0"),
+&"battle_strike": SubResource("Animation_p5fyr"),
+&"idle": SubResource("Animation_0dxp8")
+}
+
+[node name="Dipshit" type="Node3D" unique_id=701862837 node_paths=PackedStringArray("mainCharsprite", "unitCircle", "bodySpriteComponent", "teamColorSpriteComponent")]
+script = ExtResource("1_qq7jp")
+mainCharsprite = NodePath("Graphics/Visible/Main3dSpr")
+unitCircle = NodePath("Graphics/Visible/TeamCircle")
+bodySpriteComponent = NodePath("Graphics/SubViewport/Dipshit2D/MainOrigin/MainSprite")
+teamColorSpriteComponent = NodePath("Graphics/SubViewport/Dipshit2D/MainOrigin/MainSprite/TeamColor")
+
+[node name="Graphics" type="Node3D" parent="." unique_id=557978922 node_paths=PackedStringArray("VisibleComponent", "MainSprite", "Anim", "subViewport")]
+script = ExtResource("2_ef51g")
+VisibleComponent = NodePath("Visible")
+MainSprite = NodePath("Visible/Main3dSpr")
+Anim = NodePath("AnimationPlayer")
+subViewport = NodePath("SubViewport")
+
+[node name="Visible" type="Node3D" parent="Graphics" unique_id=1700464896]
+
+[node name="Main3dSpr" type="Sprite3D" parent="Graphics/Visible" unique_id=48952566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+offset = Vector2(0, 16)
+pixel_size = 0.03
+billboard = 1
+alpha_cut = 1
+alpha_scissor_threshold = 0.26
+texture_filter = 0
+texture = SubResource("ViewportTexture_llicf")
+
+[node name="Shadow" type="MeshInstance3D" parent="Graphics/Visible" unique_id=132953718]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.05, 0)
+material_override = SubResource("StandardMaterial3D_llicf")
+mesh = SubResource("PlaneMesh_t8hoc")
+
+[node name="TeamCircle" type="Sprite3D" parent="Graphics/Visible" unique_id=1014252846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
+modulate = Color(1, 1, 1, 0.6784314)
+pixel_size = 0.007
+axis = 1
+alpha_cut = 2
+texture_filter = 1
+texture = ExtResource("5_cdird")
+
+[node name="SubViewport" type="SubViewport" parent="Graphics" unique_id=293976876]
+transparent_bg = true
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+size = Vector2i(64, 64)
+
+[node name="Dipshit2D" parent="Graphics/SubViewport" unique_id=1620093214 instance=ExtResource("5_bv7og")]
+
+[node name="TeamColor" parent="Graphics/SubViewport/Dipshit2D/MainOrigin/MainSprite" parent_id_path=PackedInt32Array(1620093214, 1102576354) index="0" unique_id=824030776]
+visible = false
+
+[node name="StickOrigin" parent="Graphics/SubViewport/Dipshit2D/MainOrigin" parent_id_path=PackedInt32Array(1620093214, 1222032170) index="1" unique_id=1815368086]
+rotation = 0.0
+
+[node name="Stick" parent="Graphics/SubViewport/Dipshit2D/MainOrigin/StickOrigin" index="0" unique_id=878895485]
+z_index = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics" unique_id=1228702566]
+libraries/ = SubResource("AnimationLibrary_llicf")
+autoplay = &"idle"
+
+[node name="barback" type="Sprite3D" parent="." unique_id=383249124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.4)
+visible = false
+pixel_size = 0.001
+billboard = 1
+fixed_size = true
+alpha_cut = 1
+texture_filter = 1
+texture = ExtResource("7_mvmrx")
+
+[node name="barback2" type="Sprite3D" parent="barback" unique_id=479657316]
+sorting_offset = 1.0
+pixel_size = 0.0015
+billboard = 1
+fixed_size = true
+alpha_cut = 1
+texture_filter = 1
+texture = ExtResource("8_cdird")
+
+[editable path="Graphics/SubViewport/Dipshit2D"]
