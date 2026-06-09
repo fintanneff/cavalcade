@@ -18,7 +18,7 @@ public partial class StatRegistry : Node
         };
         jsoptions.Converters.Add(new CustomStatConverter());
         jsoptions.Converters.Add(new CustomVector3IConverter());
-        //InitFromPaths();
+        InitFromPaths();
     }
     const string classes_path = "res://CharacterSheet/Classes/";
     const string species_path = "res://CharacterSheet/Species/";
@@ -32,6 +32,7 @@ public partial class StatRegistry : Node
 
     public void InitFromPaths()
     {
+        Classes = new Dictionary<ClassKey, ClassSheet>();
         foreach (string str in ResourceLoader.ListDirectory(classes_path))
         {
             string objname = str[..^1];
@@ -40,9 +41,13 @@ public partial class StatRegistry : Node
                 string path = classes_path + str;
                 string datapath = path + "_" + objname + ".json";
                 var file = FileAccess.Open(datapath, FileAccess.ModeFlags.Read);
+                GD.Print("Reading " + file.ToString() + " from path " + datapath);
+                GD.Print(file.GetAsText());
+                GD.Print(result);
                 Classes.Add(result, ClassSheet.FromJSONString(file.GetAsText()));
             }
         }
+        Species = new Dictionary<SpeciesKey, SpeciesSheet>();
         foreach (string str in ResourceLoader.ListDirectory(species_path))
         {
             string objname = str[..^1];
@@ -51,6 +56,7 @@ public partial class StatRegistry : Node
                 string path = species_path + str;
                 string datapath = path + "_" + objname + ".json";
                 var file = FileAccess.Open(datapath, FileAccess.ModeFlags.Read);
+                GD.Print("Reading " + file.ToString() + " from path " + datapath);
                 Species.Add(result, SpeciesSheet.FromJSONString(file.GetAsText()));
             }
         }

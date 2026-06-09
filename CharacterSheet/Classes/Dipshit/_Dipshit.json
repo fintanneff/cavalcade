@@ -1,0 +1,16 @@
+{
+  "Name": "Dipshit",
+  "ClassStats": {
+	"BaseStats": {
+	  "HP": "5 0 0"
+	},
+	"MinorStats": {
+	  "Gumption": "5 1 2"
+	}
+  },
+  "primaryWeaponType": 1,
+  "secondaryWeaponTypes": [
+	0,
+	3
+  ]
+}

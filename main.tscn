@@ -663,6 +663,13 @@ size = Vector3(1, 1, 4)
 [node name="Main" type="Node3D" unique_id=26420950]
 metadata/_edit_lock_ = true
 
+[node name="Dipshit" parent="." unique_id=701862837 instance=ExtResource("15_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="Dipshit2" parent="." unique_id=2063372460 instance=ExtResource("15_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+TeamIndex = 1
+
 [node name="Map" type="SubViewportContainer" parent="." unique_id=2063057712]
 material = SubResource("ShaderMaterial_getpj")
 anchors_preset = 15
@@ -927,13 +934,6 @@ camSystem = NodePath("../Map/MapViewport/CamSystem")
 
 [node name="BattleBootstrapper" type="Node" parent="." unique_id=1935590488]
 script = ExtResource("13_ycdy4")
-
-[node name="Dipshit" parent="." unique_id=701862837 instance=ExtResource("15_vivmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
-
-[node name="Dipshit2" parent="." unique_id=2063372460 instance=ExtResource("15_vivmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-TeamIndex = 1
 
 [editable path="Battle/BattleViewport/BattleScene"]
 [editable path="Battle/BattleViewport/BattleScene/FakePortrait"]

@@ -66,8 +66,9 @@ public class CharSheet
         return toReturn;
     }
     // Current Status
-    public int Hp { get; set; }
+    public int Wounds { get; set; }
     public int Exp { get; set; }
+    public int PsycheAttrition { get; set; }
     // Functions to save and load character sheet
     public void SaveTo(string rel_path) { }
     public void LoadFrom(string rel_path) { }

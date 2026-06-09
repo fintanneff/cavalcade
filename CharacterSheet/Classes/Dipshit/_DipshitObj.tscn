@@ -611,8 +611,8 @@ material_override = SubResource("StandardMaterial3D_llicf")
 mesh = SubResource("PlaneMesh_t8hoc")
 
 [node name="TeamCircle" type="Sprite3D" parent="Graphics/Visible" unique_id=1014252846]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
-modulate = Color(1, 1, 1, 0.6784314)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00024767965, 0.060705837, -0.00055891275)
+modulate = Color(1, 1, 1, 0.47058824)
 pixel_size = 0.007
 axis = 1
 alpha_cut = 2

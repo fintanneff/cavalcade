@@ -50,16 +50,15 @@ public partial class GridPawn : Node3D
     }
     public void SetColorsAndGraphics()
     {
-        if (CharSheet == null) return;
         if (ScenarioInfo.Inst != null)
         {
             Color myTeamColor = ScenarioInfo.Inst.teamColors[TeamIndex];
-            teamColorSpriteComponent.Modulate = myTeamColor;
+            myTeamColor.A = unitCircle.Modulate.A;
             unitCircle.Modulate = myTeamColor;
         }
-        SpeciesSheet speciesSheet = StatRegistry.Inst.Species[CharSheet.SpeciesKey];
+        if (CharSheet == null) return;
+        //SpeciesSheet speciesSheet = StatRegistry.Inst.Species[CharSheet.SpeciesKey];
         //bodySpriteComponent.Texture = speciesSheet.SpriteSheets[0];
-        //teamColorSpriteComponent.Texture = speciesSheet.TeamColorSprite;
     }
     public void SetPositionInGrid()
     {

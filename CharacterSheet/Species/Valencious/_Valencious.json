@@ -1,0 +1,11 @@
+{
+  "Name": "Valencious",
+  "SpeciesStats": {
+	"BaseStats": {
+	  "HP": "5 0 0"
+	},
+	"MinorStats": {
+	  "Gumption": "5 1 2"
+	}
+  }
+}
