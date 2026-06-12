@@ -4,7 +4,3 @@
 
 [node name="StatRegistry" type="Node" unique_id=18197218]
 script = ExtResource("1_q7rbp")
-Classes = Dictionary[int, Object]({})
-Species = Dictionary[int, Object]({})
-BaseStatProperties = Dictionary[int, Object]({})
-MinorStatProperties = Dictionary[int, Object]({})

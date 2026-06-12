@@ -1,0 +1,20 @@
+{
+  "Name": "Defaulto",
+  "Level": 1,
+  "ClassKey": 0,
+  "SpeciesKey": 2,
+  "CharStats": {
+	"BaseStats": {},
+	"MinorStats": {}
+  },
+  "EquipmentSlots": [
+	{
+		"DataKey": "Stick",
+		"DurabilityDamage": 0.0,
+		"ReloadTurnsRemaining": -1
+	}
+  ],
+  "Wounds": 0,
+  "Exp": 0,
+  "PsycheAttrition": 0
+}

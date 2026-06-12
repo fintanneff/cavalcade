@@ -600,9 +600,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 offset = Vector2(0, 16)
 pixel_size = 0.03
 billboard = 1
-alpha_cut = 1
+alpha_cut = 2
 alpha_scissor_threshold = 0.26
-texture_filter = 0
+texture_filter = 1
 texture = SubResource("ViewportTexture_llicf")
 
 [node name="Shadow" type="MeshInstance3D" parent="Graphics/Visible" unique_id=132953718]

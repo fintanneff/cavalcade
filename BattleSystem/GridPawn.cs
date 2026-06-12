@@ -30,11 +30,11 @@ public partial class GridPawn : Node3D
     private EditorUpdater editorUpdater;
     // Stats
     [Export] public int TeamIndex { get; set; } = 0;
-    [Export] public int MovementTiles { get; set; } = 3;
-    [Export] public int StandardRangeMax { get; set; } = 1;
-    [Export] public int StandardRangeMin { get; set; } = 0;
-    [Export] public Vector2[] SpecialPattern { get; set; }
-    [Export] public int BaseActionPriority { get; set; }
+    public int MovementTiles { get { return CharSheet.GetBaseStat(BaseStatKey.MovementTiles).Value; } }
+    public int StandardRangeMax { get { return 1; } }
+    public int StandardRangeMin { get { return 0; } }
+    public Vector2I[] SpecialPattern { get; set; }
+    public int BaseActionPriority { get { return CharSheet.GetBaseStat(BaseStatKey.Priority).Value; } }
     // State
     [Export] public bool Exhausted { get; set; }
     [Export] public int SlotIndexInReg;
@@ -72,21 +72,6 @@ public partial class GridPawn : Node3D
         {
             if (StandingTile.Inhabitant == this) StandingTile.Inhabitant = null;
         }
-    }
-    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
-    public void OccupyTileRPC(int _x, int _y) { OccupyTile(_x, _y); }
-    public void OccupyTile(int _x, int _y) { OccupyTile(GridMapGen.Inst.Tiles[_y, _x]); }
-    public void OccupyTile(GridTile _tile)
-    {
-        FreeStandingTile();
-        StandingTile = _tile;
-        StandingTile.Inhabitant = this;
-    }
-    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
-    public void PassThroughTileRPC(int _x, int _y)
-    {
-        FreeStandingTile();
-        StandingTile = GridMapGen.Inst.Tiles[_y, _x];
     }
 
     public override void _Process(double delta)
@@ -258,10 +243,31 @@ public partial class GridPawn : Node3D
         if (pawn == null) return;
     }
 
-    private Color ColorMulti(Color _color, float _r, float _g, float _b, float _a)
+    /*
+     * Make tile the perminant standing tile
+     */
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void OccupyTileRPC(int _x, int _y) { OccupyTile(_x, _y); }
+    public void OccupyTile(int _x, int _y) { OccupyTile(GridMapGen.Inst.Tiles[_y, _x]); }
+    public void OccupyTile(GridTile _tile)
     {
-        return new Color(_color.R * _r,_color.G * _g,_color.B * _b,_color.A * _a);
+        FreeStandingTile();
+        StandingTile = _tile;
+        StandingTile.Inhabitant = this;
     }
+    /*
+     * Visually pass through a tile without claiming it
+     */
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void PassThroughTileRPC(int _x, int _y)
+    {
+        FreeStandingTile();
+        StandingTile = GridMapGen.Inst.Tiles[_y, _x];
+    }
+
+    /*
+     * Designate this unit as exhausted
+     */
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void ExhaustRPC() { Exhaust(); }
     public void Exhaust()
@@ -278,6 +284,9 @@ public partial class GridPawn : Node3D
             unitCircle.Modulate = ColorMulti(unitCircle.Modulate, 0.5f, 0.5f, 0.5f, 0.4f);
         }
     }
+    /*
+     * Un-Designate this unit as exhausted
+     */
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void RefreshRPC() { Refresh(); }
     public void Refresh()
@@ -287,6 +296,12 @@ public partial class GridPawn : Node3D
         Halter = null;
         if (mainCharsprite != null) mainCharsprite.Modulate = mainCharspriteStartColor;
         if (unitCircle != null) unitCircle.Modulate = unitCircleStartColor;
+    }
+
+
+    private Color ColorMulti(Color _color, float _r, float _g, float _b, float _a)
+    {
+        return new Color(_color.R * _r, _color.G * _g, _color.B * _b, _color.A * _a);
     }
 
 }

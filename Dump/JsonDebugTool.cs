@@ -1,11 +1,13 @@
 using Godot;
+using System;
+using System.Collections.Generic;
 
 public partial class JsonDebugTool : Node
 {
 
 	public override void _Ready()
 	{
-        BlankCharJsonToClipboard();
+        BlankEquipmentJsonToClipboard();
 	}
 
 	public void BlankSpeciesJsonToClipboard()
@@ -49,10 +51,38 @@ public partial class JsonDebugTool : Node
             PsycheAttrition     = 0,
             Exp                 = 0,
         };
-        charSheet.CharStats.BaseStats[BaseStatKey.HP] = new Stat(5, 0, 0);
-        charSheet.CharStats.MinorStats[MinorStatKey.Gumption] = new Stat(5, 1, 2);
         string jsontext = charSheet.ToJSONString();
         DisplayServer.ClipboardSet(jsontext);
     }
 
+    public void BlankEquipmentJsonToClipboard()
+    {
+        Equipment equipment = new Equipment()
+        {
+            Name = "Stick",
+            Type = WeaponType.Sword,
+            MaxDurability = 10.0,
+            Weight = 1.0,
+            Actions = new EquipmentAction[1],
+        };
+        equipment.Actions[0] = new EquipmentAction()
+        {
+            Name = "Whack",
+            RequiresLoading = false,
+            MaxRange = 1,
+            MinRange = 0,
+            SpecialPattern = Array.Empty<Vector2I>(),
+            BaseDamage = 5,
+            ScalingStats = [
+                MinorStatKey.Whimsy, 
+                MinorStatKey.Crunch, 
+                MinorStatKey.Strength, 
+                MinorStatKey.Skill
+                ],
+            BaseDurabilityLoss = 0.25,
+            BasePriority = 5,
+        };
+        string jsontext = equipment.ToJSONString();
+        DisplayServer.ClipboardSet(jsontext);
+    }
 }

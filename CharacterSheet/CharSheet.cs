@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.Json.Nodes;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Diagnostics;
 
 public enum ClassKey
 {
@@ -38,14 +39,23 @@ public struct CharStatTotal
     }
 }
 
+public struct EquipmentSlotData
+{
+    public string DataKey { get; set; }
+    public double DurabilityDamage { get; set; }
+    public int ReloadTurnsRemaining { get; set; }
+}
+
 public class CharSheet
 {
     public string Name { get; set; }
+    public string JsonSourcePath { get; set; }
     // Character Stats
     public int Level { get; set; }
     public ClassKey ClassKey { get; set; }
     public SpeciesKey SpeciesKey { get; set; }
     public StatSheet CharStats { get; set; }
+    public List<EquipmentSlotData> EquipmentSlots { get; set; }
     // Stat Crunchers
     public CharStatTotal GetBaseStat(BaseStatKey key)
     {
@@ -74,11 +84,21 @@ public class CharSheet
     public void LoadFrom(string rel_path) { }
     public static CharSheet FromJSONString(string json_string)
     {
-        return JsonSerializer.Deserialize<CharSheet>(json_string, StatRegistry.Inst.jsoptions);
+        CharSheet newsheet = JsonSerializer.Deserialize<CharSheet>(json_string, StatRegistry.Inst.jsoptions);
+        return newsheet;
     }
     public string ToJSONString()
     {
         return JsonSerializer.Serialize(this, StatRegistry.Inst.jsoptions);
+    }
+
+    public CharSheet CloneFromJsonSource()
+    {
+        if (JsonSourcePath.Length < 1) return null;
+        var file = FileAccess.Open(JsonSourcePath, FileAccess.ModeFlags.Read);
+        GD.Print("Reading " + file.ToString() + " from path " + JsonSourcePath);
+        CharSheet newsheet = CharSheet.FromJSONString(file.GetAsText());
+        return newsheet;
     }
 
 }

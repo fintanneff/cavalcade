@@ -50,6 +50,13 @@ public partial class BattleBootstrapper : Node
     public async void Setup()
     {
         GridMapGen.Inst.GenerateTiles();
+        // TODO LATER : Probably spawn pawns based on party lists and player defined stats
+        Godot.Collections.Array<Node> gub_nodes = GetTree().GetNodesInGroup("GenericUnitBuilder");
+        foreach (Node n in gub_nodes)
+        {
+            GenericUnitBuilder gub = n as GenericUnitBuilder;
+            gub.BuildUnit();
+        }
         foreach (GridPawn gp in PawnActionManager.Inst.PawnRegistry)
         {
             if (gp == null) continue;

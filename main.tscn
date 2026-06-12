@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://bv33lrsasgda0" path="res://BattleSystem/PawnActionManager.cs" id="10_4c57u"]
 [ext_resource type="Script" uid="uid://c8gvd525liftk" path="res://BattleSystem/ScenarioInfo.cs" id="12_vivmo"]
 [ext_resource type="Script" uid="uid://d3gigmnbu1xs" path="res://BattleSystem/BattleBootstrapper.cs" id="13_ycdy4"]
-[ext_resource type="PackedScene" uid="uid://ci8i8bgxv607g" path="res://CharacterSheet/Classes/Dipshit/_DipshitObj.tscn" id="15_vivmo"]
+[ext_resource type="PackedScene" uid="uid://xs8im2omitxo" path="res://BattleSystem/GenericUnitBuilder/GenericUnitBuilder.tscn" id="15_vivmo"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_074og"]
 viewport_path = NodePath("Map/MapViewport")
@@ -663,13 +663,6 @@ size = Vector3(1, 1, 4)
 [node name="Main" type="Node3D" unique_id=26420950]
 metadata/_edit_lock_ = true
 
-[node name="Dipshit" parent="." unique_id=701862837 instance=ExtResource("15_vivmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
-
-[node name="Dipshit2" parent="." unique_id=2063372460 instance=ExtResource("15_vivmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-TeamIndex = 1
-
 [node name="Map" type="SubViewportContainer" parent="." unique_id=2063057712]
 material = SubResource("ShaderMaterial_getpj")
 anchors_preset = 15
@@ -754,7 +747,7 @@ grow_vertical = 0
 color = Color(0, 0, 0, 1)
 
 [node name="CamSystem" type="Node3D" parent="Map/MapViewport" unique_id=619391970]
-transform = Transform3D(0.9902678, -0.06958653, 0.12052741, 0, 0.86602515, 0.49999985, -0.13917308, -0.49513388, 0.85759705, 0, 0, 0)
+transform = Transform3D(0.9999997, 0, 0, 0, 0.64278746, 0.7660442, 0, -0.7660442, 0.64278746, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Map/MapViewport/CamSystem" unique_id=1896607899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 20.05)
@@ -934,6 +927,13 @@ camSystem = NodePath("../Map/MapViewport/CamSystem")
 
 [node name="BattleBootstrapper" type="Node" parent="." unique_id=1935590488]
 script = ExtResource("13_ycdy4")
+
+[node name="TEAM0" parent="." unique_id=1558878627 instance=ExtResource("15_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0703036, 0, -0.032138824)
+
+[node name="TEAM1" parent="." unique_id=80670184 instance=ExtResource("15_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0703036, 0, -2.0321388)
+TeamIndex = 1
 
 [editable path="Battle/BattleViewport/BattleScene"]
 [editable path="Battle/BattleViewport/BattleScene/FakePortrait"]

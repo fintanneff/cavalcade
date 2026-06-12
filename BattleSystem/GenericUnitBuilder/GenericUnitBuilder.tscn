@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://xs8im2omitxo"]
+
+[ext_resource type="Script" uid="uid://c8ujo47kqlnh1" path="res://BattleSystem/GenericUnitBuilder/GenericUnitBuilder.cs" id="1_e3noe"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5h8af"]
+
+[node name="GenericUnitBuilder" type="Node3D" unique_id=1558878627 groups=["GenericUnitBuilder"]]
+script = ExtResource("1_e3noe")
+
+[node name="EditorVisual" type="MeshInstance3D" parent="." unique_id=1429527685]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_5h8af")

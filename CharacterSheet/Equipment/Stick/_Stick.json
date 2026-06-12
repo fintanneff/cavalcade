@@ -1,0 +1,28 @@
+{
+  "Name": "Stick",
+  "Type": 0,
+  "MustBePrimary": false,
+  "Loaded": true,
+  "BaseReloadTime": -1,
+  "MaxDurability": 10,
+  "Durability": 10,
+  "Weight": 1,
+  "Actions": [
+	{
+	  "Name": "Whack",
+	  "RequiresLoading": false,
+	  "MaxRange": 1,
+	  "MinRange": 0,
+	  "SpecialPattern": [],
+	  "BaseDamage": 5,
+	  "ScalingStats": [
+		27,
+		4,
+		5,
+		1
+	  ],
+	  "BaseDurabilityLoss": 0.25,
+	  "BasePriority": 5
+	}
+  ]
+}

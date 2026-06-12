@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 public enum WeaponType
 {
@@ -27,4 +28,6 @@ public class ClassSheet
     {
         return JsonSerializer.Serialize(this, StatRegistry.Inst.jsoptions);
     }
+
+    [JsonIgnore] public PackedScene DefaultPawnScene;
 }

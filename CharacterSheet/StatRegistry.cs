@@ -22,19 +22,28 @@ public partial class StatRegistry : Node
     }
     const string classes_path = "res://CharacterSheet/Classes/";
     const string species_path = "res://CharacterSheet/Species/";
+    const string prebuiltchars_path = "res://CharacterSheet/PrebuiltChars/";
+    const string equipment_path = "res://CharacterSheet/Equipment/";
     const string major_stats_path = "res://CharacterSheet/MajorStats/";
     const string minor_stats_path = "res://CharacterSheet/MinorStats/";
-    public Dictionary<ClassKey, ClassSheet> Classes;
-    public Dictionary<SpeciesKey, SpeciesSheet> Species;
-    public Dictionary<BaseStatKey, StatProperties> BaseStatProperties;
-    public Dictionary<MinorStatKey, StatProperties> MinorStatProperties;
+    public Dictionary<ClassKey, ClassSheet> Classes { get; private set; }
+    public Dictionary<SpeciesKey, SpeciesSheet> Species { get; private set; }
+    public Dictionary<string, CharSheet> PrebuiltChars { get; private set; }
+    public Dictionary<string, Equipment> EquipmentDict { get; private set; }
+    public Dictionary<BaseStatKey, StatProperties> BaseStatProperties { get; private set; }
+    public Dictionary<MinorStatKey, StatProperties> MinorStatProperties { get; private set; }
 
+    public void ReadDirIntoDict()
+    {
 
+    }
     public void InitFromPaths()
     {
+        // Collect class data
         Classes = new Dictionary<ClassKey, ClassSheet>();
         foreach (string str in ResourceLoader.ListDirectory(classes_path))
         {
+            if (str[^1] != '/') continue;
             string objname = str[..^1];
             if (Enum.TryParse<ClassKey>(objname, out ClassKey result))
             {
@@ -42,14 +51,16 @@ public partial class StatRegistry : Node
                 string datapath = path + "_" + objname + ".json";
                 var file = FileAccess.Open(datapath, FileAccess.ModeFlags.Read);
                 GD.Print("Reading " + file.ToString() + " from path " + datapath);
-                GD.Print(file.GetAsText());
-                GD.Print(result);
-                Classes.Add(result, ClassSheet.FromJSONString(file.GetAsText()));
+                ClassSheet cs = ClassSheet.FromJSONString(file.GetAsText());
+                cs.DefaultPawnScene = ResourceLoader.Load<PackedScene>(path + "_" + objname + "Obj.tscn");
+                Classes.Add(result, cs);
             }
         }
+        // Collect species data
         Species = new Dictionary<SpeciesKey, SpeciesSheet>();
         foreach (string str in ResourceLoader.ListDirectory(species_path))
         {
+            if (str[^1] != '/') continue;
             string objname = str[..^1];
             if (Enum.TryParse<SpeciesKey>(objname, out SpeciesKey result))
             {
@@ -59,6 +70,33 @@ public partial class StatRegistry : Node
                 GD.Print("Reading " + file.ToString() + " from path " + datapath);
                 Species.Add(result, SpeciesSheet.FromJSONString(file.GetAsText()));
             }
+        }
+        // Collect equipment data
+        EquipmentDict = new Dictionary<string, Equipment>();
+        foreach (string str in ResourceLoader.ListDirectory(equipment_path))
+        {
+            if (str[^1] != '/') continue;
+            string objname = str[..^1];
+            string path = equipment_path + str;
+            string datapath = path + "_" + objname + ".json";
+            var file = FileAccess.Open(datapath, FileAccess.ModeFlags.Read);
+            GD.Print("Reading " + file.ToString() + " from path " + datapath);
+            Equipment newsheet = Equipment.FromJSONString(file.GetAsText());
+            EquipmentDict.Add(objname, newsheet);
+        }
+        // Collect prebuilt character data
+        PrebuiltChars = new Dictionary<string, CharSheet>();
+        foreach (string str in ResourceLoader.ListDirectory(prebuiltchars_path))
+        {
+            if (str[^1] != '/') continue;
+            string objname = str[..^1];
+            string path = prebuiltchars_path + str;
+            string datapath = path + "_" + objname + ".json";
+            var file = FileAccess.Open(datapath, FileAccess.ModeFlags.Read);
+            GD.Print("Reading " + file.ToString() + " from path " + datapath);
+            CharSheet newsheet = CharSheet.FromJSONString(file.GetAsText());
+            newsheet.JsonSourcePath = datapath;
+            PrebuiltChars.Add(objname, newsheet);
         }
     }
 
