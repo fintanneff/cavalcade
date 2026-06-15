@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 public partial class BattleBootstrapper : Node
@@ -21,8 +22,11 @@ public partial class BattleBootstrapper : Node
     {
         if (!Multiplayer.IsServer())
         {
+            GD.Print("Server starting new ready check...");
+            ClientReadyList = new List<int>();
             RpcId(1, "MarkReadyRPC", Multiplayer.GetUniqueId());
             while (!LocalContinueSignal) await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+            GD.Print("Server ready check complete!");
             return;
         }
         ClientReadyList.Clear();
@@ -57,6 +61,7 @@ public partial class BattleBootstrapper : Node
             GenericUnitBuilder gub = n as GenericUnitBuilder;
             gub.BuildUnit();
         }
+        await WaitForPeersReady();
         foreach (GridPawn gp in PawnActionManager.Inst.PawnRegistry)
         {
             if (gp == null) continue;

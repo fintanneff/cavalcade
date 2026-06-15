@@ -2,8 +2,7 @@
   "Name": "Shalaket",
   "SpeciesStats": {
 	"BaseStats": {
-	  "HP": "5 0 0",
-	  "MovementTiles": "2 0 0"
+	  "HP": "5 0 0"
 	},
 	"MinorStats": {
 	  "Gumption": "5 1 2"

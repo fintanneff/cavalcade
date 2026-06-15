@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 
@@ -268,6 +269,35 @@ public partial class PawnActionManager : Node
     public override void _ExitTree()
     {
         Inst = null;
+    }
+
+
+    /*
+     * RPC function for spawning new grid pawns.
+     */
+    public static int MPSpawnCounter { get; private set; }
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void RequestSpawnCountedRPC(int _x, int _y, int team_index, string charsheet_json)
+    {
+        if (!Inst.Multiplayer.IsServer()) return;
+        MPSpawnCounter += 1;
+        Inst.Rpc("SpawnCountedRPC", _x, _y, team_index, charsheet_json, MPSpawnCounter);
+    }
+    [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void SpawnCountedRPC(int _x, int _y, int team_index, string charsheet_json, int count_index)
+    { 
+        SpawnCounted(GridMapGen.Inst.Tiles[_y, _x], team_index, charsheet_json, count_index); 
+    }
+    public void SpawnCounted(GridTile _tile, int team_index, string charsheet_json, int count_index)
+    {
+        CharSheet charSheet = CharSheet.FromJSONString(charsheet_json);
+        PackedScene spawnScene = StatRegistry.Inst.Classes[charSheet.ClassKey].DefaultPawnScene;
+        GridPawn newGP = spawnScene.Instantiate<GridPawn>();
+        newGP.CharSheet = charSheet;
+        newGP.TeamIndex = team_index;
+        Inst.GetParent().AddChild(newGP);
+        newGP.GlobalPosition = _tile.GlobalPosition;
+        newGP.Name = "MP_spawn_pawn__" + count_index.ToString();
     }
 
 }

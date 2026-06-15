@@ -1,4 +1,5 @@
 using Godot;
+using Godot.NativeInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -41,6 +42,7 @@ public partial class GridPawn : Node3D
     [Export] public bool InBattleMode { get; set; }
     public bool WasHalted { get; set; }
     public GridPawn Halter { get; set; }
+
 
     public override void _Ready()
     {

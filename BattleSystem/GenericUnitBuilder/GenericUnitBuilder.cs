@@ -12,14 +12,11 @@ public partial class GenericUnitBuilder : Node3D
 
     public void BuildUnit()
     {
-        StartingSpawnScene = StatRegistry.Inst.Classes[SetClass].DefaultPawnScene;
-        GridPawn newGP = StartingSpawnScene.Instantiate<GridPawn>();
-        newGP.CharSheet = StatRegistry.Inst.PrebuiltChars["Defaulto"].CloneFromJsonSource();
-        newGP.CharSheet.ClassKey = SetClass;
-        newGP.CharSheet.SpeciesKey = SetSpecies;
-        newGP.TeamIndex = TeamIndex;
-        GetParent().AddChild(newGP);
-        newGP.GlobalPosition = GlobalPosition;
         QueueFree();
+        if (!Multiplayer.IsServer()) return;
+        string charsheet_json_string = StatRegistry.Inst.PrebuiltChars["Defaulto"].ToJSONString();
+        Vector2I temp = GridMapGen.Inst.WorldToTilePos(GlobalPosition);
+        if (temp.X == -1) temp = new Vector2I(0, 0);
+        PawnActionManager.Inst.RpcId(1,"RequestSpawnCountedRPC", temp.X, temp.Y, TeamIndex, charsheet_json_string);
     }
 }
